@@ -14,9 +14,10 @@ public class Application {
 
         Session session = sessionFactory.getCurrentSession();
         try {
+            // save
 
-            Instructor instructor = new Instructor("Johny","Bravo","Johny@mail.ru");
-            InstructorDetail instructorDetail = new InstructorDetail("youtube.com/kuplinov","Create a video");
+            Instructor instructor = new Instructor("Marci","Helper","Marci@mail.ru");
+            InstructorDetail instructorDetail = new InstructorDetail("youtube.com/marci","Helper");
 
             instructor.setInstructorDetail(instructorDetail);
 
@@ -25,6 +26,13 @@ public class Application {
 
             session.save(instructor);
 
+            session.getTransaction().commit();
+
+            // delete
+            session = sessionFactory.getCurrentSession();
+            session.beginTransaction();
+            Instructor instructor2 = session.get(Instructor.class,1);
+            session.delete(instructor2);
             session.getTransaction().commit();
         }
         finally {
